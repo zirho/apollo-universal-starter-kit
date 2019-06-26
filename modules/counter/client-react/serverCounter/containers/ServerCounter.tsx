@@ -18,14 +18,8 @@ const IncreaseButton = ({ counterAmount, t, counter }: ButtonProps) => (
       const addServerCounter = (amount: number) => () =>
         mutate({
           variables: { amount },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            addServerCounter: {
-              __typename: 'Counter',
-              amount: counter.amount + 1
-            }
-          },
           update: (cache: any, { data }: any) => {
+            console.log('data', data);
             const newAmount = data.addServerCounter.amount;
 
             cache.writeQuery({
